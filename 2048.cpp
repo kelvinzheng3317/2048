@@ -10,18 +10,6 @@ void printGrid(int** grid) {
         cout << "-----------------------------" << endl;
         cout << "| ";
         for (int j=0; j<4; ++j) {
-            // if (grid[i][j] == 0) {
-            //     cout << "____";
-            // } else if (grid[i][j] < 10) { 
-            //     cout << "__" << grid[i][j] << "_";
-            // } else if (grid[i][j] < 100) {
-            //     cout << "_" << grid[i][j] << "_";
-            // } else if (grid[i][j] < 1000) {
-            //     cout << "_" << grid[i][j];
-            // } else {
-            //     cout << grid[i][j];
-            // }
-            // cout << " | ";
             if (grid[i][j] < 10) {
                 cout << "_";
             }
@@ -306,7 +294,8 @@ int main() {
     /* The basic implementation will have it so that when there is no empty spaces, the game is over.
     Note, that in a more complex implementation, the game doesn't end when there is no empty spaces,
     but instead when there is no more legal moves. */
-    while (gameOver(grid) == 0) {
+    int gameState = gameOver(grid);
+    while (gameState == 0) {
         printGrid(grid);
         cout << "Give a direction: ";
         cin >> userInput;
@@ -339,6 +328,16 @@ int main() {
         if (validMove) {
             generateNewSquare(grid);
         }
+        
+        // check the game state
+        gameState = gameOver(grid);
+    }
+    
+    
+    if (gameState == 1) {
+        cout << "You Lose :(" << endl;
+    } else if (gameState == 2) {
+        cout << "You Win!! :)" << endl;
     }
 
 }
